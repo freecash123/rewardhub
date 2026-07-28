@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { useAuth } from '-/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import { Coins, User, Mail, Lock, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
