@@ -3,7 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -18,22 +17,10 @@ jobs:
         with:
           node-version: 20
       - name: Install dependencies
-        run: |
-          cd frontend
-          npm install
+        run: cd frontend && npm install
       - name: Build
-        run: |
-          cd frontend
-          npm run build
-      - name: Fix payments bug (if needed)
-        run: |
-          # If build fails, rewrite payments page with proper formatting
-          if [ ! -d "frontend/out" ]; then
-            cat > frontend/src/app/payments/page.tsx << 'ENDPAGE'
-'./... payments fix script'
-            cd frontend && npm run build
-          fi
+        run: cd frontend && npm run build
       - uses: peaceiris/actions-gh-pages@v4
         with:
-          publish_dir: frontend/out
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: frontend/out
