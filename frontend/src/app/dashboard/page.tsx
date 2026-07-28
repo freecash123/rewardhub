@@ -10,31 +10,33 @@ export default function DashboardPage() {
   const { user, loading: aL, logout } = useAuth();
   const router = useRouter();
   const [data, setData] = useState<any>(null);
+
   useEffect(() => {
     if (!aL && !user) { router.push('/auth/login'); return; }
     if (user) api.get('/user/dashboard', getToken()).then((d: any) => setData(d.data)).catch(() => {});
   }, [user, aL]);
+
   if (!user) return null;
 
   const navItems = [
-    { i: Wallet, l: 'Dashboard', h: '/dashboard' },
-    { i: CreditCard, l: 'Payments', h: '/payments' },
-    { i: Users, l: 'Referrals', h: '/referrals' },
-    { i: Gift, l: 'Support', h: '/support' },
+    { icon: Wallet, label: 'Dashboard', href: '/dashboard' },
+    { icon: CreditCard, label: 'Payments', href: '/payments' },
+    { icon: Users, label: 'Referrals', href: '/referrals' },
+    { icon: Gift, label: 'Support', href: '/support' },
   ];
 
   const stats = [
-    { l: 'Balance', v: '$' + (user.balance?.toFixed(2)||'0.00'), i: Wallet, c: 'text-purple-400' },
-    { l: 'Lifetime', v: '$' + (data?.user?.lifetimeEarnings?.toFixed(2)||'0.00'), i: TrendingUp, c: 'text-green-400' },
-    { l: 'Referrals', v: data?.referralCount||0, i: Users, c: 'text-blue-400' },
-    { l: 'RefEarnings', v: '$' + (data?.user?.referralEarnings?.toFixed(2)||'0.00'), i: Gift, c: 'text-pink-400' },
+    { label: 'Balance', value: `$${user.balance?.toFixed(2) || '0.00'}`, icon: Wallet, color: 'text-purple-400' },
+    { label: 'Lifetime', value: `$${data?.user?.lifetimeEarnings?.toFixed(2) || '0.00'}`, icon: TrendingUp, color: 'text-green-400' },
+    { label: 'Referrals', value: data?.referralCount || 0, icon: Users, color: 'text-blue-400' },
+    { label: 'Ref Earnings', value: `$${data?.user?.referralEarnings?.toFixed(2) || '0.00'}`, icon: Gift, color: 'text-pink-400' },
   ];
 
   const actions = [
-    { j: CreditCard, l: 'Deposit', d: 'Add funds', h: '/payments' },
-    { j: Send, l: 'Withdraw', d: 'Cash out', h: '/payments' },
-    { j: Users, l: 'Invite', d: 'Referrals', h: '/referrals' },
-    { j: History, l: 'History', d: 'Transactions', h: '/payments' },
+    { icon: CreditCard, label: 'Deposit', desc: 'Add funds', href: '/payments' },
+    { icon: Send, label: 'Withdraw', desc: 'Cash out', href: '/payments' },
+    { icon: Users, label: 'Invite', desc: 'Referrals', href: '/referrals' },
+    { icon: History, label: 'History', desc: 'Transactions', href: '/payments' },
   ];
 
   return (
@@ -48,8 +50,12 @@ export default function DashboardPage() {
         </Link>
         <nav className="space-y-1 flex-1">
           {navItems.map(n => (
-            <Link key={n.h} href={n.h} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${n.h === '/dashboard' ? 'bg-purple-500/10 text-purple-400' : 'text-zinc-400 hover:text-white'}`}>
-              <n.i size={18} /> {n.l}
+            <Link
+              key={n.href}
+              href={n.href}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${n.href === '/dashboard' ? 'bg-purple-500/10 text-purple-400' : 'text-zinc-400 hover:text-white'}`}
+            >
+              <n.icon size={18} /> {n.label}
             </Link>
           ))}
         </nav>
@@ -57,28 +63,32 @@ export default function DashboardPage() {
           <LogOut size={18} /> Sign Out
         </button>
       </aside>
+
       <main className="flex-1 p-6">
         <h1 className="text-2xl font-bold mb-8">Welcome, {user.username}</h1>
+
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {stats.map((s, i) => (
             <div key={i} className="card">
-              <s.i size={20} className={s.c} />
-              <div className="text-xs text-zinc-500 mt-2">{s.l}</div>
-              <div className="text-xl font-bold">{s.v}</div>
+              <s.icon size={20} className={s.color} />
+              <div className="text-xs text-zinc-500 mt-2">{s.label}</div>
+              <div className="text-xl font-bold">{s.value}</div>
             </div>
           ))}
         </div>
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
           {actions.map((a, i) => (
-            <Link key={i} href={a.h} className="card card-hover flex items-center gap-3 py-4">
-              <a.j size={18} className="text-purple-400" />
+            <Link key={i} href={a.href} className="card card-hover flex items-center gap-3 py-4">
+              <a.icon size={18} className="text-purple-400" />
               <div>
-                <div className="text-sm font-semibold">{a.l}</div>
-                <div className="text-xs text-zinc-500">{a.d}</div>
+                <div className="text-sm font-semibold">{a.label}</div>
+                <div className="text-xs text-zinc-500">{a.desc}</div>
               </div>
             </Link>
           ))}
         </div>
+
         <div className="card">
           <h3 className="font-semibold mb-4">Recent Transactions</h3>
           {data?.recentTransactions?.length > 0 ? data.recentTransactions.slice(0, 5).map((tx: any) => (
