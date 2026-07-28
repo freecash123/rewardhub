@@ -2,9 +2,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '-/hooks/useAuth';
-import { Coins, Mail, Lock, User, ArrowRight } from 'lucide-react';
+import { Coins, User, Mail, Lock, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+
 export default function RegisterPage() {
   const { register } = useAuth();
   const router = useRouter();
@@ -12,9 +13,15 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const h = async (e: any) => {
     e.preventDefault(); setLoading(true);
-    try { await register(form); toast.success('Account created!'); router.push('/dashboard'); }
-    catch (err: any) { toast.error(err.message); }
-    finally { setLoading(false); }
+    try {
+      await register(form);
+      toast.success('Account created!');
+      router.push('/dashboard');
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
@@ -24,10 +31,10 @@ export default function RegisterPage() {
         <p className="text-zinc-400 mb-8">Start earning crypto today.</p>
         <div className="card">
           <form onSubmit={h} className="space-y-4">
-            <input className="input" placeholder="Username" value={form.username} onChange={e=>setForm({...form,username:e.target.value})} required/>
-            <input type="email" className="input" placeholder="Email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} required/>
-            <input type="password" className="input" placeholder="Password" value={form.password} onChange={e=>setForm({...form,password:e.target.value})} required/>
-            <button type="submit" disabled={loading} className="btn btn-primary w-full">{loading?'Creating...':'Create Account'}</button>
+            <input className="input" placeholder="Username" value={form.username} onChange={e => setForm({...form, username: e.target.value})} required />
+            <input type="email" className="input" placeholder="Email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} required />
+            <input type="password" className="input" placeholder="Password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} required />
+            <button type="submit" disabled={loading} className="btn btn-primary w-full">{loading ? 'Creating...' : 'Create Account'} <ArrowRight size={16}/></button>
           </form>
           <p className="text-center text-sm text-zinc-500 mt-4">Have account? <Link href="/auth/login" className="text-purple-400">Sign in</Link></p>
         </div>
