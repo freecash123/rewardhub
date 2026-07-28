@@ -29,10 +29,10 @@ export default function DashboardPage() {
       <main className="flex-1 p-6">
         <h1 className="text-2xl font-bold mb-8">Welcome, {user.username}</h1>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {[{l:'Balance',v:$2{user.balance?.toFixed(2)||'0.00'},i:Wallet,c:text-purple-400},{l:'Lifetime',v:$2{data?.user?.lifetimeEarnings?.toFixed(2)||'0.00'},i:TrendingUp,c:text-green-400},{l:'Referrals',v:data?.referralCount||0,i:Users,c:text-blue-400},{l:'RefEarnings',v:$2{data?.user?.referralEarnings?.toFixed(2)||'0.00'},i:Gift,c:text-pink-400}].map((s, i) => (<div key={i} className="card"><s.i size={20} className={s.c}/><div className="text-xs text-zinc-500 mt-2">{s.l}</div><div className="text-xl font-bold">{s.v}</div></div>)))}
+          {[{l:'Balance',v:${user.balance?.toFixed(2)||'0.00'},i:Wallet,c:text-purple-400},{l:'Lifetime',v:${data?.user?.lifetimeEarnings?.toFixed(2)||'0.00'},i:TrendingUp,c:text-green-400},{l:'Referrals',v:data?.referralCount||0,i:Users,c:text-blue-400},{l:'RefEarnings',v:${data?.user?.referralEarnings?.toFixed(2)||'0.00'},i:Gift,c:text-pink-400}].map((s, i) => (<div key={i} className="card"><s.i size={20} className={s.c}/><div className="text-xs text-zinc-500 mt-2">{s.l}</div><div className="text-xl font-bold">{s.v}</div></div>)))}
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-          {[{j:CreditCard,l:Deposit,d:Add funds,h:'/payments'},{j:Send,l:Withdraw,d:Cash out,h:'/payments'},{j:Users,l:Invite,d:Referrals,h:'/referrals'},{j:History,l:Istory,d:Transactions,h:'/payments'}].map((a,i) => (<Link key={i} href={a.h} className="card card-hover flex items-center gap-3 py-4"><a.j size={18} className="text-purple-400"/><div><div className="text-sm font-semibold">{l.l}</div><div className="text-xs text-zinc-500">{a.d}</div></div></link>)))}
+          {[{j:CreditCard,l:Deposit,d:Add funds,h:'/payments'},{j:Send,l:Withdraw,d:Cash out,h:'/payments'},{j:Users,l:Invite,d:Referrals,h:'/referrals'},{j:History,l:Istory,d:Transactions,h:'/payments'}].map((a,i) => (<Link key={i} href={a.h} className="card card-hover flex items-center gap-3 py-4"><a.j size={18} className="text-purple-400"/><div><div className="text-sm font-semibold">{a.l}</div><div className="text-xs text-zinc-500">{a.d}</div></div></Link>)))}
         </div>
         <div className="card">
           <h3 className="font-semibold mb-4">Recent Transactions</h3>
