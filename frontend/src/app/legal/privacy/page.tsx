@@ -1,5 +1,12 @@
-export default function Privacy() { return <div className="min-h-screen bg-[0#0a0a0f] pt-24 px-4"><div className="max-w-3xl mx-auto py-12"><h1 className="text-3xl font-bold mb-6">Privacy <span className="gradient-text">Policy</span></h1><div className="card"><p className="text-sm text-zinc-400">We collect email, username, wallet addresses, IP, and transaction data to provide our services. Your data is never sold. You can request deletion anytime. Contact: privacy@rewardhub.com</p></div></div></div> }
-
-export default function Terms() { return <div className="min-h-screen bg-[#0a0a0f] pt-24 px-4"><div className="max-w-3xl mx-auto py-12"><h1 className="text-3xl font-bold mb-6">Terms of <span className="gradient-text">Service</span></h1><div className="card"><p className="text-sm text-zinc-400">By using RewardHub you agree to these terms. Fraud, multiple accounts, or automation will result in termination. Payments go to your provided wallet.</p></div></div></div> }
-
-export default function Cookies() { return <div className="min-h-screen bg-[#0a0a0f] pt-24 px-4"><div className="max-w-3xl mx-auto py-12"><h1 className="text-3xl font-bold mb-6">Cookie <span className="gradient-text">Policy</span></h1><div className="card"><p className="text-sm text-zinc-400">We use essential cookies for authentication. By using RewardHub, you consent to our cookie usage.</p></div></div></div> }
+export default function Privacy() {
+  return (
+    <div className="min-h-screen bg-[#0a0a0f] pt-24 px-4">
+      <div className="max-w-3xl mx-auto py-12">
+        <h1 className="text-3xl font-bold mb-6">Privacy <span className="gradient-text">Policy</span></h1>
+        <div className="card">
+          <p className="text-sm text-zinc-400">We collect email, username, wallet addresses, IP, and transaction data to provide our services. Your data is never sold. Contact: privacy@rewardhub.com</p>
+        </div>
+      </div>
+    </div>
+  );
+}
