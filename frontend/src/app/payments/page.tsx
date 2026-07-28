@@ -47,7 +47,7 @@ export default function PaymentsPage() {
             } finally { setLoading(false); }
           }} className="space-y-4">
             <select className="input" value={df.coin} onChange={e => setDf({ ...df, coin: e.target.value })}>
-              {coins.map((c: any) => <option key={c.coin} value={c.coin}>{c.name}</option>)}
+              {coins.map(c => <option key={c.coin} value={c.coin}>{c.name}</option>)}
             </select>
             <input type="number" className="input" placeholder="Amount (USD)" value={df.amountUSD} onChange={e => setDf({ ...df, amountUSD: e.target.value })} />
             <button disabled={loading} className="btn btn-primary w-full">Generate Payment</button>
@@ -61,13 +61,13 @@ export default function PaymentsPage() {
             <div className="bg-white p-4 rounded-lg">
               <QRCodeSVG value={active.walletAddress} size={180} />
             </div>
-            <p className="text-xs">{active.walletAddress}</p>
+            <p className="text-xs">{{active.walletAddress}}</p>
           </div>
         </div>
       )}
       {tab === 'withdraw' && (
         <div className="card max-w-md">
-          <h2>Withdraw ${user.balance}</h2>
+          <h2>Withdraw $user.balance</h2>
           <form onSubmit={async e => {
             e.preventDefault(); setLoading(true);
             try {
